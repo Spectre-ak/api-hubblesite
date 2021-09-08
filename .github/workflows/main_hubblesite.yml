@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: dockerdemotesting.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_fd80cf34eb0940cf97287556fc6bfc1b }}/hubblesite-api-img:${{ github.sha }}
+        tags: dockerdemotesting.azurecr.io/hubblesite-api-img:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'hubblesite'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3ef111afb52f43e6865755944dd7d062 }}
-        images: 'dockerdemotesting.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_fd80cf34eb0940cf97287556fc6bfc1b }}/hubblesite-api-img:${{ github.sha }}'
+        images: 'dockerdemotesting.azurecr.io/hubblesite-api-img:${{ github.sha }}'
