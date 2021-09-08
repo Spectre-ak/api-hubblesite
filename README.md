@@ -1,1 +1,1 @@
-# api-hubblesite
+# hubblesite-api
