@@ -12,7 +12,7 @@ public class ImageData {
 
 	@GetMapping("/")
 	public Object index(){
-		return "/";
+		return "/index";
 	}
 
 }
