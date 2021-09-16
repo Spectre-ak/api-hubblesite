@@ -23,8 +23,8 @@ public class DumpDataDB {
 		        .build();
 		MongoClient mongoClient = MongoClients.create(settings);
 		
-		dumpImgResc(mongoClient);   
-		
+		//dumpImgResc(mongoClient);   
+		dumpVidResc(mongoClient);
 	}
 	
 	static void dumpImgResc(MongoClient mongoClient) {
@@ -53,5 +53,31 @@ public class DumpDataDB {
 			e.printStackTrace();
 		}
 	}
-
+	
+	static void dumpVidResc(MongoClient mongoClient) {
+		try {
+			
+			MongoDatabase database = mongoClient.getDatabase("hubblesite");
+			MongoCollection<Document> collection = database.getCollection("video-rsc");
+			
+			String result=CharStreams.toString(new InputStreamReader(DumpDataDB.class.getClassLoader().getResourceAsStream("vidArray.json")));
+			
+			JSONArray dataArray=new JSONArray(result);
+			int counter=0;
+			for(Object object:dataArray) {
+				counter++;
+				synchronized (dataArray) {
+					Document document=new Document("1",object.toString());
+					collection.insertOne(document);
+				}
+				System.out.println(counter);
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 }
