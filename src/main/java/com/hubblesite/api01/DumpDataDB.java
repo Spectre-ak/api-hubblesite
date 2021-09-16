@@ -23,9 +23,8 @@ public class DumpDataDB {
 		        .build();
 		MongoClient mongoClient = MongoClients.create(settings);
 		
-		//dumpImgResc(mongoClient);   
+		dumpImgResc(mongoClient);   
 		
-		System.out.println();
 	}
 	
 	static void dumpImgResc(MongoClient mongoClient) {
@@ -37,13 +36,14 @@ public class DumpDataDB {
 			String result=CharStreams.toString(new InputStreamReader(DumpDataDB.class.getClassLoader().getResourceAsStream("imgArray.json")));
 			
 			JSONArray dataArray=new JSONArray(result);
-			
+			int counter=0;
 			for(Object object:dataArray) {
+				counter++;
 				synchronized (dataArray) {
-					Document document=new Document();
-					
+					Document document=new Document("1",object.toString());
+					collection.insertOne(document);
 				}
-				break;
+				System.out.println(counter);
 			}
 			
 			
