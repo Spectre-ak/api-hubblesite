@@ -31,7 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
-src/main/java/com/hubblesite/api01/DBurl.java
+
 src/main/resources/imgArray.json
 src/main/resources/vidArray.json
 src/main/resources/test.txt
