@@ -24,7 +24,7 @@ public class DumpDataDB {
 		MongoClient mongoClient = MongoClients.create(settings);
 		
 		//dumpImgResc(mongoClient);   
-		dumpVidResc(mongoClient);
+		//dumpVidResc(mongoClient);
 	}
 	
 	static void dumpImgResc(MongoClient mongoClient) {
