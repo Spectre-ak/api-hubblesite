@@ -17,8 +17,8 @@ public class ImageData {
 		this.dbUtil=new DBUtil();
 		this.resc=this.dbUtil.getImages();
 	}
-	@GetMapping("/")
-	public Object index(){
+	@GetMapping("/all/images")
+	public String index(){
 		return this.resc.toString(3);
 	}
 
