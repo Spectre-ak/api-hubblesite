@@ -4,6 +4,7 @@ import java.awt.List;
 import java.util.ArrayList;
 
 import org.bson.Document;
+import org.json.JSONArray;
 
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
@@ -44,7 +45,7 @@ public class DBUtil {
 
 	}
 
-	public ArrayList<Object> getImages() {
+	public JSONArray getImages() {
 		ConnectionString connectionString = new ConnectionString(System.getenv("dburl"));
 		MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString)
 				.build();
@@ -57,16 +58,19 @@ public class DBUtil {
 		FindIterable<Document> fi = collection.find();
 		MongoCursor<Document> cursor = fi.iterator();
 		ArrayList<Object> list=new ArrayList<>();
+		JSONArray jsonArray=new JSONArray();
 		try {
 			while (cursor.hasNext()) {
 				Document document = cursor.next();
-				list.add(document.toString());
+				//list.add(document.get("1"));
+				jsonArray.put(document.get("1"));
+				break;
 				
 			}
 		} finally {
 			cursor.close();
 		}
-		return list;
+		return jsonArray;
 	}
 
 }
