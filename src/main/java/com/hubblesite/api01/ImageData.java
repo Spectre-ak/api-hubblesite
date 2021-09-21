@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImageData {
 
 	private DBUtil dbUtil;
-	private ArrayList<Object> resc;
+	private JSONArray resc;
 	public ImageData() {
 		this.dbUtil=new DBUtil();
 		this.resc=this.dbUtil.getImages();
 	}
 	@GetMapping("/")
 	public Object index(){
-		return this.resc;
+		return this.resc.toString(3);
 	}
 
 }
