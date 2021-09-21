@@ -45,7 +45,7 @@ public class DBUtil {
 
 	}
 
-	public JSONArray getImages() {
+	public JSONArray getResc(String db) {
 		ConnectionString connectionString = new ConnectionString(System.getenv("dburl"));
 		MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString)
 				.build();
@@ -54,7 +54,7 @@ public class DBUtil {
 		
 		
 		MongoDatabase database = mongoClient.getDatabase("hubblesite");
-		MongoCollection<Document> collection = database.getCollection("image-resc");
+		MongoCollection<Document> collection = database.getCollection(db);
 		FindIterable<Document> fi = collection.find();
 		MongoCursor<Document> cursor = fi.iterator();
 		ArrayList<Object> list=new ArrayList<>();

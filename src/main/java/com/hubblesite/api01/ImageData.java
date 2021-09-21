@@ -1,11 +1,9 @@
 package com.hubblesite.api01;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,18 +21,12 @@ public class ImageData {
 	private JSONArray resc;
 	public ImageData() {
 		this.dbUtil=new DBUtil();
-		this.resc=this.dbUtil.getImages();
+		this.resc=this.dbUtil.getResc("image-resc");
 	}
 	
 	@RequestMapping(value = "/all/images", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ArrayList<String> index(){
-		ArrayList<String> arrayList=new ArrayList<>();
-		for(Object jsonObject:this.resc) {
-			arrayList.add(jsonObject.toString());
-			break;
-		}
-		
-		return arrayList;
+	public @ResponseBody String index(){
+		return this.resc.toString();
 	}
 
 }
