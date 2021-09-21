@@ -64,8 +64,6 @@ public class DBUtil {
 				Document document = cursor.next();
 				//list.add(document.get("1"));
 				jsonArray.put(document.get("1"));
-				break;
-				
 			}
 		} finally {
 			cursor.close();
