@@ -24,35 +24,35 @@ public class DBUtil {
 	private MongoClient mongoClient = null;
 
 	public DBUtil() {
-//		try {
-//			String keyVaultName = "keyVaultsForSecureCreds";
-//			String keyVaultUri = "https://" + keyVaultName + ".vault.azure.net";
-//
-//			SecretClient secretClient = new SecretClientBuilder().vaultUrl(keyVaultUri)
-//					.credential(new DefaultAzureCredentialBuilder().build()).buildClient();
-//
-//			KeyVaultSecret retrievedSecret = secretClient.getSecret("databaseCredentials");
-//			this.dburl = retrievedSecret.getValue();
-//			ConnectionString connectionString = new ConnectionString(dburl);
-//			MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString)
-//					.build();
-//			MongoClient mongoClient = MongoClients.create(settings);
-//			this.mongoClient = mongoClient;
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
+		try {
+			String keyVaultName = "keyVaultsForSecureCreds";
+			String keyVaultUri = "https://" + keyVaultName + ".vault.azure.net";
+
+			SecretClient secretClient = new SecretClientBuilder().vaultUrl(keyVaultUri)
+					.credential(new DefaultAzureCredentialBuilder().build()).buildClient();
+
+			KeyVaultSecret retrievedSecret = secretClient.getSecret("databaseCredentials");
+			this.dburl = retrievedSecret.getValue();
+			ConnectionString connectionString = new ConnectionString(dburl);
+			MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString)
+					.build();
+			MongoClient mongoClient = MongoClients.create(settings);
+			this.mongoClient = mongoClient;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 	}
 
 	public JSONArray getResc(String db) {
-		ConnectionString connectionString = new ConnectionString(System.getenv("dburl"));
-		MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString)
-				.build();
-		MongoClient mongoClient = MongoClients.create(settings);
-		this.mongoClient = mongoClient;
-		
-		
+//		ConnectionString connectionString = new ConnectionString(System.getenv("dburl"));
+//		MongoClientSettings settings = MongoClientSettings.builder().applyConnectionString(connectionString)
+//				.build();
+//		MongoClient mongoClient = MongoClients.create(settings);
+//		this.mongoClient = mongoClient;
+//		
+//		
 		MongoDatabase database = mongoClient.getDatabase("hubblesite");
 		MongoCollection<Document> collection = database.getCollection(db);
 		FindIterable<Document> fi = collection.find();
