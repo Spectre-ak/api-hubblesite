@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://dockerdemotesting.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_0c44ca4e8f7848a3bc56753257990b73 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_624050c1bfe4428f8e7689f85c1edf26 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_caaa00e316dd405a8934869842e784be }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_e6b9e90af99c4f23aabe5b9b64e4bb6e }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: dockerdemotesting.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_0c44ca4e8f7848a3bc56753257990b73 }}/hubblesite-api-img-v3:${{ github.sha }}
+        tags: dockerdemotesting.azurecr.io/hubble-api-v4:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'hubblesite'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_1d8fb2d25c77436681597716019a2e00 }}
-        images: 'dockerdemotesting.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_0c44ca4e8f7848a3bc56753257990b73 }}/hubblesite-api-img-v3:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_78799e5e495d45aebc077fed9f01f03d }}
+        images: 'dockerdemotesting.azurecr.io/hubble-api-v4:${{ github.sha }}'
