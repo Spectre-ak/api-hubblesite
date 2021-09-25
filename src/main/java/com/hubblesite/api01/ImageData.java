@@ -1,6 +1,8 @@
 package com.hubblesite.api01;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -30,18 +32,33 @@ public class ImageData {
 	public @ResponseBody String index(){
 		return this.resc.toString();
 	}
-	
+
 	@RequestMapping(value = "/images/tags/{tags}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getImagesBasedOnTags(@PathVariable String tags) {
 		System.out.println(tags);
+		tags=tags.toLowerCase();
+		List<String> listTags=new ArrayList<>();
+		listTags=Arrays.asList(tags.split("\\+"));
 		
-		for(Object obj:this.resc) {
-			obj=(JSONObject) obj;
-			System.out.println(obj);
-			break;
+		System.out.println(listTags);
+		
+		JSONArray similarTagsResults=new JSONArray();
+		
+		for(int i=0;i<this.resc.length();i++) {
+			JSONObject jsonObject=new JSONObject(this.resc.get(i).toString());
+			JSONArray tagsPresent=jsonObject.getJSONArray("tags");
+			for(Object obj:tagsPresent) {
+				String tag=obj.toString().toLowerCase();
+				for(String subTag:listTags) {
+					if(subTag.contains(tag) || tag.contains(subTag)) {
+						similarTagsResults.put(jsonObject);
+					}
+				}
+			}
 		}
 		
-		return null;
+		
+		return similarTagsResults.toString();
 	}
 
 }
